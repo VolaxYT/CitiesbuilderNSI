@@ -39,4 +39,6 @@ F & A - start.py
 - fleurs
 - antennes sur les maisons
 - nuages
+- sur la porte fenêtre rajouter un pot de fleur
+- système de différents types de fleurs  
 ```

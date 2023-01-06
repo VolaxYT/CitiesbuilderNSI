@@ -2,9 +2,23 @@
 
 import turtle
 from random import randint
-from facade import facade
-from porte import porte
-from fenetre import fenetre
+from batiments.immeuble.facade import facade
+from batiments.immeuble.porte import porte
+from batiments.immeuble.fenetre import fenetre
+
+def customRDC(x, ySol, c_facade, emplacementObjetImportant, c_porte):
+    # Dessine la facade
+    facade(x, ySol, c_facade, 0)
+
+    # Construit les 3 éléments (1 porte et 2 fenetres)
+    L = [0, 1, 2]
+    coos = [x - 40, x, x + 40]
+
+    porte(coos[emplacementObjetImportant], ySol, c_porte)
+    L.remove(emplacementObjetImportant)
+
+    for i in L:
+        fenetre(coos[i], ySol + 20)
 
 
 def rdc(x, ySol, c_facade, c_porte):
@@ -32,6 +46,8 @@ def rdc(x, ySol, c_facade, c_porte):
 
     for i in L:
         fenetre(coos[i], ySol + 20)
+
+    return rdmPorte
 
 '''
 if __name__ == '__main__':

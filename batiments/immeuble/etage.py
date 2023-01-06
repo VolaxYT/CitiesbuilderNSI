@@ -1,10 +1,23 @@
 # module étage
 
-from facade import facade
+from batiments.immeuble.facade import facade
 from random import randint
-from fenetre import fenetre
-from fenetreBalcon import fenetreBalcon
-import turtle
+from batiments.immeuble.fenetre import fenetre
+from batiments.immeuble.fenetreBalcon import fenetreBalcon
+
+def customEtage(x, ySol, couleur, emplacementObjetImportant, niveau):
+    # dessin des murs
+    facade(x, ySol + niveau * 60, couleur, 0)
+
+    # Construit les 3 éléments (1 porte-fenetre et 2 fenetres)
+    L = [0, 1, 2]
+    coos = [x - 40, x, x + 40]
+
+    fenetreBalcon(coos[emplacementObjetImportant], ySol + niveau * 60)
+    L.remove(emplacementObjetImportant)
+
+    for i in L:
+        fenetre(coos[i], ySol + niveau * 60 + 20)
 
 def etage(x, ySol, couleur, niveau):
     '''
@@ -29,6 +42,8 @@ def etage(x, ySol, couleur, niveau):
 
     for i in L:
         fenetre(coos[i], ySol + niveau * 60 + 20)
+
+    return rdmPorteFenetre
 
 '''
 if __name__ == '__main__':

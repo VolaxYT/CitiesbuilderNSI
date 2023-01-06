@@ -4,6 +4,9 @@ maxEtages = 5
 allowSoleil = True
 allowLampadaires = True
 lampadairesChance = 60
+instantDrawing = True
+importFileName = ""
+randomStreet = True
 
 def getWidth():
     return width
@@ -14,11 +17,20 @@ def getHeight():
 def getMaxEtages():
     return maxEtages
 
-def getAllowSoleil():
+def isAllowSoleil():
     return allowSoleil
 
-def getAllowLampadaires():
+def isAllowLampdaires():
     return allowLampadaires
 
 def getLampadairesChance():
     return lampadairesChance
+
+def isInstantDrawing():
+    return instantDrawing
+
+def getImportFileName():
+    return importFileName
+
+def isRandomSteet():
+    return randomStreet

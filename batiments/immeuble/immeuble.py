@@ -2,40 +2,73 @@
 
 import turtle
 from utils.couleurAleatoire import couleurAleatoire
-from random import randint
-from rdc import rdc
-from etage import etage
-from toit import toit
+from batiments.immeuble.rdc import *
+from batiments.immeuble.etage import *
+from batiments.immeuble.toit import *
 import param
+from batiments.batiment import Batiment
 
+class Immeuble(Batiment):
+    def draw(self):
+        turtle.colormode(255)
 
-def immeuble(x, ySol):
-    '''
-    Paramètres
-        x : abscisse du centre de l'étage
-        y_sol : ordonnée du sol du la rue
-    Cette fonction dessine un immeuble Le nombre d'étage est compris aléatoirement entre 0 et 4
-    La couleur de la façade et la couleur de la porte sont tirées au hasard
-    '''
-    # Nombre d'étage (aléatoire)
-    nb = randint(1, param.getMaxEtages())
+        #Si c'est un immeuble aléatoire
+        if len(list(self.etages)) == 0:
+            # Dessin du RDC
+            self.etages.append(rdc(self.batimentXBase, self.batimentYSol, self.couleurFacade, self.couleurPorte))
+            # Dessin des étages
+            for i in range(1, self.nombreEtages):
+                self.etages.append(etage(self.batimentXBase, self.batimentYSol, self.couleurFacade, i))
 
-    #Couleurs des éléments (aléatoire)
-    couleur = couleurAleatoire()
+        # Si c'est un immeuble prégénéré
+        else:
+            # Dessin du RDC
+            customRDC(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[0]), self.couleurPorte)
+            for i in range(1, self.nombreEtages):
+                print(self.etages[i - 1])
+                customEtage(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[i]), i)
 
-    turtle.colormode(255)
+        # Si c'est un immeuble aléatoire
+        if self.typeToit == "":
+            self.typeToit = toit(self.batimentXBase, self.batimentYSol, self.nombreEtages)
+        else:
+            self.typeToit = customToit(self.batimentXBase, self.batimentYSol, self.typeToit, self.nombreEtages)
 
-    # Dessin du RDC
-    rdc(x, ySol, couleur, couleurAleatoire())
+    def __init__(self, nom: str, position: int, x, ySol, nombreEtages, couleurFacade, couleurPorte, typeToit, etages):
+        super().__init__(nom, position, x, ySol)
 
-    # Dessin des étages
-    for i in range(1, nb):
-        etage(x ,ySol, couleur, i)
+        # Nombre d'étage (aléatoire)
+        if nombreEtages == 0:
+            self.nombreEtages = randint(1, param.getMaxEtages())
+        else:
+            self.nombreEtages = nombreEtages
 
-    toit(x, ySol, nb)
+        # Couleurs des éléments (aléatoire)
+        if couleurFacade == 0:
+            self.couleurFacade = couleurAleatoire()
+        else:
+            self.couleurFacade = couleurFacade
 
-    pass
+        if couleurPorte == 0:
+            self.couleurPorte = couleurAleatoire()
+        else:
+            self.couleurPorte = couleurPorte
 
+        if etages == 0:
+            self.etages = []
+        else:
+            self.etages = etages
+
+        if typeToit == 0:
+            self.typeToit = ""
+        else:
+            self.typeToit = typeToit
+
+    def __repr__(self):
+        return repr(self.toString())
+
+    def toString(self) -> str:
+        return f"Immeuble;'{self.nomBatiment}';{self.batimentPosition};{self.batimentXBase};{self.batimentYSol};{self.nombreEtages};{self.couleurFacade};{self.couleurPorte};{self.typeToit};{self.etages}"
 '''
 if __name__ == '__main__':
     immeuble(0,0)

@@ -1,7 +1,7 @@
 # module rectangle
 
 import turtle
-from trait import trait
+from utils.trait import trait
 
 def rectangle(x,y,w,h):
     '''
