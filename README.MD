@@ -1,6 +1,6 @@
 # Informations:
 
-Fait par Florent (@VolaxYT) & Ambroise (@ambroiselebs).
+Fait par Florent ([@VolaxYT][https://github.com/VolaxYT/]) & Ambroise ([@ambroiselebs][https://github.com/ambroiselebs/]).
 
 # Executer :
 
