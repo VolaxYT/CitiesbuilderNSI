@@ -25,7 +25,6 @@ class Immeuble(Batiment):
             # Dessin du RDC
             customRDC(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[0]), self.couleurPorte)
             for i in range(1, self.nombreEtages):
-                print(self.etages[i - 1])
                 customEtage(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[i]), i)
 
         # Si c'est un immeuble aléatoire

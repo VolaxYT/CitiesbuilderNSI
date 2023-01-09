@@ -1,13 +1,9 @@
-import turtle
 from tkinter import *
 
-import param
 import rue
 import sys
-from param import *
 from rue import *
 from utils.manageSave import *
-
 
 # Relancer la fenêtre de la turtle et mettre à jour tout les paramètres
 def refreshParamsAndRelaunch():
@@ -20,7 +16,7 @@ def refreshParamsAndRelaunch():
     param.instantDrawing = bool(instantDrawingButton.config('text')[-1] == "True")
     param.importFileName = str(importFileNameEntry.get())
     param.randomStreet = bool(randomStreetButton.config('text')[-1] == "True")
-    rue.batimentsList = []
+    rue.elementsList = []
 
     wn = turtle.Screen()
     wn.clearscreen()
@@ -36,12 +32,13 @@ def end():
 
 
 def save():
-    if saveFileNameEntry.get() != "" and saveFileNameEntry.get() != ".txt":
-        objects = ""
-        for batiment in rue.batimentsList:
+    if saveFileNameEntry.get() != "" and saveFileNameEntry.get() != ".txt" and isRandomSteet():
+        objects = f"Main;'Rue';{param.isInstantDrawing()};{param.getWidth()};{param.getHeight()}\n"
+
+        for batiment in rue.elementsList:
             objects += str(batiment) + "\n"
 
-        exportFile(str(saveFileNameEntry.get()),objects)
+        exportFile(str(saveFileNameEntry.get()), objects)
 
 # Fonction pour faire le boutton "switch" du soleil
 def onOffSoleil():
