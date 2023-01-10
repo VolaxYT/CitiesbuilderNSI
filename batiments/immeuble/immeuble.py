@@ -1,14 +1,13 @@
 # module immeuble
 
-import turtle
-from utils.couleurAleatoire import couleurAleatoire
 from batiments.immeuble.rdc import *
 from batiments.immeuble.etage import *
 from batiments.immeuble.toit import *
-import param
 from batiments.batiment import Batiment
 
+# Objet pour pouvoir stocker l'immeuble plus facilement (+ hérite de l'objet Batiment)
 class Immeuble(Batiment):
+    # Fonction pour dessiner l'immeuble
     def draw(self):
         turtle.colormode(255)
 
@@ -20,56 +19,41 @@ class Immeuble(Batiment):
             for i in range(1, self.nombreEtages):
                 self.etages.append(etage(self.batimentXBase, self.batimentYSol, self.couleurFacade, i))
 
-        # Si c'est un immeuble prégénéré
+        # Si c'est un immeuble pré-généré
         else:
             # Dessin du RDC
             customRDC(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[0]), self.couleurPorte)
             for i in range(1, self.nombreEtages):
+                # Dessin de chaque étage de l'immeuble avec ses paramètres prédéfinies d'entrées
                 customEtage(self.batimentXBase, self.batimentYSol, self.couleurFacade, int(self.etages[i]), i)
 
-        # Si c'est un immeuble aléatoire
-        if self.typeToit == "":
-            self.typeToit = toit(self.batimentXBase, self.batimentYSol, self.nombreEtages)
-        else:
-            self.typeToit = customToit(self.batimentXBase, self.batimentYSol, self.typeToit, self.nombreEtages)
+        # Dessiner le toit de l'immeuble
+        toit(self)
 
+    # Fonction pour initialiser l'objet Immeuble et lui attribuer ses variables
     def __init__(self, nom: str, position: int, x, ySol, nombreEtages, couleurFacade, couleurPorte, typeToit, etages):
+        #Attribut les valeurs de l'objet Batiment
         super().__init__(nom, position, x, ySol)
 
-        # Nombre d'étage (aléatoire)
-        if nombreEtages == 0:
-            self.nombreEtages = randint(1, param.getMaxEtages())
-        else:
-            self.nombreEtages = nombreEtages
+        # Nombre d'étage de l'immeuble
+        self.nombreEtages = nombreEtages
 
-        # Couleurs des éléments (aléatoire)
-        if couleurFacade == 0:
-            self.couleurFacade = couleurAleatoire()
-        else:
-            self.couleurFacade = couleurFacade
+        # Couleur de de la facade de l'immeuble
+        self.couleurFacade = couleurFacade
 
-        if couleurPorte == 0:
-            self.couleurPorte = couleurAleatoire()
-        else:
-            self.couleurPorte = couleurPorte
+        # Couleur de de la porte de l'immeuble
+        self.couleurPorte = couleurPorte
 
-        if etages == 0:
-            self.etages = []
-        else:
-            self.etages = etages
+        # Type de toit pour l'immeuble
+        self.typeToit = typeToit
 
-        if typeToit == 0:
-            self.typeToit = ""
-        else:
-            self.typeToit = typeToit
+        # Si l'immeuble est pré-fait, permet de définir les informations importantes de chaque étage de l'immeuble (emplacement porte ou porte-fenêtre)
+        self.etages = etages
 
+    # Permet quand l'objet est appelé de renvoyer par défaut l'objet en chaîne de caractères
     def __repr__(self):
         return repr(self.toString())
 
+    # Convertie l'objet Immeuble en une chaîne de caractères avec toute les informations relatifs à l'immeuble
     def toString(self) -> str:
         return f"Immeuble;'{self.nomBatiment}';{self.batimentPosition};{self.batimentXBase};{self.batimentYSol};{self.nombreEtages};{self.couleurFacade};{self.couleurPorte};{self.typeToit};{self.etages}"
-
-if __name__ == '__main__':
-    immeuble(0,0)
-    # On ferme la fenêtre s'il y a un clique gauche
-    turtle.exitonclick()

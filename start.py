@@ -1,6 +1,6 @@
 
 from tkinter import *
-
+import param
 import rue
 import sys
 from rue import *

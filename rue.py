@@ -3,10 +3,10 @@
 import random
 
 from param import *
-from sol import sol
+import param
 from batiments.immeuble.immeuble import *
 from utils.manageSave import *
-
+from utils.couleurAleatoire import couleurAleatoire
 
 # ------------------------------
 # ------------------------------
@@ -37,14 +37,14 @@ def main():
 
         # Dessin des immeubles
         for i in range(0, len(posConstruction)):
-            bat = Immeuble("Default", i, posConstruction[i], y_sol,0,0,0,0,0)
+            bat = Immeuble("Default", i, posConstruction[i], y_sol,randint(1, param.getMaxEtages()), couleurAleatoire(), couleurAleatoire(), randint(1,2), [])
             bat.draw()
             elementsList.append(bat)
 
         # Dessin des lampadaires si allowLampadaires est à True
         if isAllowLampdaires():
             for i in range(0, len(posConstruction) - 1):
-                # Dessin du lampadaire aléatoire si un nombre aléatoire est en dessous de lampadairesChance%
+                # Dessin du lampadaire aléatoire si un nombre aléatoire est en dessous de lampadairesChance
                 if random.randint(0, 100) <= getLampadairesChance():
                     lamp = Lampadaire("Default", posConstruction[i] + 105, y_sol)
                     lamp.draw()

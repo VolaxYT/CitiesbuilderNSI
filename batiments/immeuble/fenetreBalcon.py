@@ -14,9 +14,8 @@ def fenetreBalcon(x ,y):
         Dessine une porte-fenetre avec balcon en 2 temps: la porte fenetre de 30 pixels de large par 50 pixels de hauteur
         puis le balcon
     '''
+
     # porte-fenetre
-
-
     turtle.fillcolor("lightblue")
     turtle.begin_fill()
     rectangle(x,y,30, 50)

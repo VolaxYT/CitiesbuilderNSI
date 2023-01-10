@@ -31,15 +31,12 @@ F & A - start.py
 
 # Idées :
 ```
-- système pour créer différents types de batiments (avec numéro du batiment qui correspond à posConstruction)
-- système pour sauvegarder et recharger des sauvegardes de villes
-- batiments en 3D
 - mode 2D/3D
 - arbres 
 - fleurs
 - antennes sur les maisons
 - nuages
 - sur la porte fenêtre rajouter un pot de fleur
-- système de différents types de fleurs  
+- système de différents types de fleurs
 - couleurs immeubles dans les mêmes teintes
 ```
