@@ -22,7 +22,7 @@ def importFile(fileName):
         turtle.Screen().tracer(0)
 
     # Dessin du sol de la rue
-    sol(-(int(options[4]) / 4))
+    sol(-(int(options[4]) / 4), int(options[3]))
 
     for line in lines:
         if line.replace('"', '').split(';')[0] == "Immeuble":

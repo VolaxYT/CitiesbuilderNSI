@@ -26,9 +26,7 @@ def toit(x, ySol, niveau):
         toit2(x, ySol, niveau)
         return "toit2"
 
-'''
 if __name__ == '__main__':
     toit(0,0,0)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

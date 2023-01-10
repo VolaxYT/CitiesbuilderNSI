@@ -41,4 +41,5 @@ F & A - start.py
 - nuages
 - sur la porte fenêtre rajouter un pot de fleur
 - système de différents types de fleurs  
+- couleurs immeubles dans les mêmes teintes
 ```

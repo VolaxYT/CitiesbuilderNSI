@@ -35,9 +35,7 @@ def fenetreBalcon(x ,y):
     turtle.pensize(1)
 
 
-'''
 if __name__ == '__main__':
     fenetreBalcon(0,0)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

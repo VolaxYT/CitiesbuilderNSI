@@ -18,9 +18,7 @@ def rectangle(x,y,w,h):
     trait(x - w/2, y + h, x - w/2, y)
     trait(x - w/2, y, x, y)
 
-'''
 if __name__ == '__main__':
     rectangle(0,0,150,100)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

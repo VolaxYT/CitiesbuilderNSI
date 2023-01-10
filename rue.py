@@ -25,7 +25,7 @@ def main():
         # On définit la hauteur du sol
         y_sol = -(param.getHeight() / 4)
         # Dessin du sol de la rue
-        sol(y_sol)
+        sol(y_sol, param.getWidth())
 
         # Dessiner toute la ville instantanément
         if isInstantDrawing():
@@ -67,7 +67,5 @@ def main():
     turtle.exitonclick()
 
 
-'''
 if __name__ == '__main__':
     main()
-    '''

@@ -49,9 +49,7 @@ def rdc(x, ySol, c_facade, c_porte):
 
     return rdmPorte
 
-'''
 if __name__ == '__main__':
     rdc(0, 0, "red", "green")
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

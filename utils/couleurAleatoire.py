@@ -12,7 +12,6 @@ def couleurAleatoire():
     couleur = (randint(0,255), randint(0,255), randint(0,255))
     return couleur    
 
-'''
 if __name__ == '__main__':
     turtle.colormode(255)
     for i in range (15):
@@ -22,4 +21,3 @@ if __name__ == '__main__':
         turtle.right(180-12)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-'''

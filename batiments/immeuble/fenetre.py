@@ -17,9 +17,7 @@ def fenetre(x,y):
     rectangle(x,y,30,30)
     turtle.end_fill()
 
-'''
 if __name__ == '__main__':
     fenetre(0,0)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

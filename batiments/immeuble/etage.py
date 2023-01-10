@@ -45,9 +45,7 @@ def etage(x, ySol, couleur, niveau):
 
     return rdmPorteFenetre
 
-'''
 if __name__ == '__main__':
     etage(0,0,"red",0)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-'''

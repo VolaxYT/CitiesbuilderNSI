@@ -23,9 +23,7 @@ def toit1(x, ySol, niveau):
     trait(x - 80, ySol + niveau*60, x, ySol + niveau*60 + 40)
     turtle.end_fill()
 
-'''
 if __name__ == '__main__':
     toit1(0,0,4)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''

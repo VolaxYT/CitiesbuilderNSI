@@ -68,9 +68,8 @@ class Immeuble(Batiment):
 
     def toString(self) -> str:
         return f"Immeuble;'{self.nomBatiment}';{self.batimentPosition};{self.batimentXBase};{self.batimentYSol};{self.nombreEtages};{self.couleurFacade};{self.couleurPorte};{self.typeToit};{self.etages}"
-'''
+
 if __name__ == '__main__':
     immeuble(0,0)
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
-    '''
