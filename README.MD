@@ -32,6 +32,7 @@ F & A - start.py
 # Idées :
 ```
 - mode 2D/3D
+- système 3D coordonées 3D -> projetées dans un plan 2D 
 - arbres 
 - fleurs
 - antennes sur les maisons

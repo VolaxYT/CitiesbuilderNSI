@@ -54,6 +54,6 @@ class Immeuble(Batiment):
     def __repr__(self):
         return repr(self.toString())
 
-    # Convertie l'objet Immeuble en une chaîne de caractères avec toute les informations relatifs à l'immeuble
+    # Convertie l'objet Immeuble en une chaîne de caractères avec toute les informations relatives à l'immeuble
     def toString(self) -> str:
         return f"Immeuble;'{self.nomBatiment}';{self.batimentPosition};{self.batimentXBase};{self.batimentYSol};{self.nombreEtages};{self.couleurFacade};{self.couleurPorte};{self.typeToit};{self.etages}"

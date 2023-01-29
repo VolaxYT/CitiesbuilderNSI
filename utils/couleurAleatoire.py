@@ -1,7 +1,6 @@
 # module générer une couleur aléatoire
 
 import turtle
-from rectangle import rectangle
 from random import randint
 
 def gen_col_grey():
@@ -35,7 +34,6 @@ if __name__ == '__main__':
     turtle.pencolor(col)
     turtle.begin_fill()
     turtle.fillcolor(col)
-    rectangle(100, 100, 100, 100)
     turtle.end_fill()
     # On ferme la fenêtre s'il y a un clique gauche
     turtle.exitonclick()
