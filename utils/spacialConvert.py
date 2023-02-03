@@ -1,5 +1,6 @@
 from trait import *
-from couleurAleatoire import *
+from couleurAleatoire import couleurAleatoire
+import turtle
 
 ratioX = 400/1100  # plus ou moins proche de l'axe des Y
 ratioY = 300/1100  # plus ou moins proche de l'axe des X
@@ -63,11 +64,11 @@ if __name__ == '__main__':
     trait(-2000, 0, 2000, 0)
     traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
 
-    volume(400, 0, 500, 100, 100, 100, couleurAleatoire())
-    volume(600, 0, 500, 100, 100, 100, couleurAleatoire())
-    volume(500, 50, 400, 100, 150, 100, couleurAleatoire())
-    volume(400, 0, 300, 100, 100, 100, couleurAleatoire())
-    volume(600, 0, 300, 100, 100, 100, couleurAleatoire())
+    volume(400,0, 500, 100, 100, 100, couleurAleatoire())
+    volume(600,0, 500, 100, 100, 100, couleurAleatoire())
+    volume(500,50, 400, 100, 150, 100, couleurAleatoire())
+    volume(400,0, 300, 100, 100, 100, couleurAleatoire())
+    volume(600,0, 300, 100, 100, 100, couleurAleatoire())
 
     volume(0,0,200,100,100,100, couleurAleatoire())
     volume(200,0,200,100,100,100, couleurAleatoire())
