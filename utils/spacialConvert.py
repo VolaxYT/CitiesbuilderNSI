@@ -7,7 +7,7 @@ import turtle
 ratioX = 400 / 1100  # plus ou moins proche de l'axe des Y
 ratioY = 300 / 1100  # plus ou moins proche de l'axe des X
 
-objects = {} # ensemble des figures à représenter
+objects = {}  # ensemble des figures à représenter
 
 # explication : https://prnt.sc/sgCj3NLM07k5 (ligne à delete du projet final)
 # valeur arbitraire pour les calculs de priorités et l'ordre de rendu des élements
@@ -35,6 +35,10 @@ def getPOV():
 def getPriority(x,y,z):
     if getPOV() == 1:
         return (5000-x) * (3000+z) - y
+    if getPOV() == 2:
+        return (5000 + x) * (3000 + z) - y
+    if getPOV() == -2:
+        return (5000 + x) * (3000 + z) + y
     if getPOV() == -1 or getPOV() == 0:
         return (5000 - x) * (3000 + z) + y
 
@@ -81,10 +85,16 @@ def volume(x, y, z, longueur, hauteur, profondeur, couleur):
     rectangle3D(plafond1, plafond2, plafond3, plafond4)
     turtle.end_fill()
     turtle.begin_fill()
-
     turtle.fillcolor(couleur)
-    rectangle3D(base3, base4, plafond4, plafond3)
-    rectangle3D(base4, base1, plafond1, plafond4)
+    if getPOV() == 1 or getPOV() == -1:
+        rectangle3D(base3, base4, plafond4, plafond3)
+        rectangle3D(base4, base1, plafond1, plafond4)
+    if getPOV() == 2 or getPOV() == -2:
+        rectangle3D(base1, base2, plafond2, plafond1)
+        turtle.end_fill()
+        turtle.begin_fill()
+        turtle.fillcolor(couleur)
+        rectangle3D(base4, base1, plafond1, plafond4)
     turtle.end_fill()
 
     turtle.penup()
@@ -99,15 +109,6 @@ def generate(x, y, z, longueur, hauteur, profondeur, couleur):
     objects[getPriority(x,y,z)] = f'{x};{y};{z};{longueur};{hauteur};{profondeur};{couleur}'
 
 if __name__ == '__main__':
-    turtle.Screen().tracer(0)
-    turtle.hideturtle()
-    turtle.penup()
-    turtle.pensize(4)
-
-    trait(0, -2000, 0, 2000)
-    trait(-2000, 0, 2000, 0)
-    traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
-
     generate(400, 0, 500, 100, 100, 100, (255,0,0))
     generate(600, 0, 500, 100, 100, 100, (255,0,0))
     generate(500, 50, 400, 100, 150, 100, (255,0,0))
@@ -124,6 +125,16 @@ if __name__ == '__main__':
     generate(160, 100, -400, 100, 100, 100, couleurAleatoire())
     generate(160, 200, -400, 100, 100, 100, couleurAleatoire())
 
+    turtle.Screen().tracer(0)
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.pensize(4)
+
+    #trait(0, -2000, 0, 2000)
+    #trait(-2000, 0, 2000, 0)
+    #traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
+
     process()
+    print(getPOV())
     turtle.Screen().update()
     turtle.done()
