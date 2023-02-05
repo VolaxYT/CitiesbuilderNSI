@@ -1,7 +1,7 @@
-import random
+import time
 
-from trait import *
-from couleurAleatoire import couleurAleatoire
+from utils.trait import *
+from utils.couleurAleatoire import couleurAleatoire
 import turtle
 
 ratioX = 400 / 1100  # plus ou moins proche de l'axe des Y
@@ -34,9 +34,9 @@ def getPOV():
 
 def getPriority(x,y,z):
     if getPOV() == 1:
-        return (5000-x) * (3000+z) - y
+        return -x * (3000+z) - y
     if getPOV() == 2:
-        return (5000 + x) * (3000 + z) - y
+        return x * (3000 - z) - y
     if getPOV() == -2:
         return (5000 + x) * (3000 + z) + y
     if getPOV() == -1 or getPOV() == 0:
@@ -55,13 +55,11 @@ def trait3D(x1, y1, z1, x2, y2, z2):
     turtle.goto(point2[0], point2[1])
     turtle.penup()
 
-
 def rectangle3D(point1, point2, point3, point4):
     traitVec(point1, point2)
     traitVec(point2, point3)
     traitVec(point3, point4)
     traitVec(point4, point1)
-
 
 def volume(x, y, z, longueur, hauteur, profondeur, couleur):
     turtle.colormode(255)
@@ -88,6 +86,9 @@ def volume(x, y, z, longueur, hauteur, profondeur, couleur):
     turtle.fillcolor(couleur)
     if getPOV() == 1 or getPOV() == -1:
         rectangle3D(base3, base4, plafond4, plafond3)
+        turtle.end_fill()
+        turtle.begin_fill()
+        turtle.fillcolor(couleur)
         rectangle3D(base4, base1, plafond1, plafond4)
     if getPOV() == 2 or getPOV() == -2:
         rectangle3D(base1, base2, plafond2, plafond1)
@@ -99,42 +100,84 @@ def volume(x, y, z, longueur, hauteur, profondeur, couleur):
 
     turtle.penup()
 
+# Permet de dessiner tout les objets
 def process():
     for object in sorted(objects, reverse=True):
-        print(object)
         figure = objects[object].split(';')
-        volume(int(figure[0]), int(figure[1]),int(figure[2]),int(figure[3]),int(figure[4]), int(figure[5]), eval(figure[6]))
+        type = figure[0]
 
-def generate(x, y, z, longueur, hauteur, profondeur, couleur):
-    objects[getPriority(x,y,z)] = f'{x};{y};{z};{longueur};{hauteur};{profondeur};{couleur}'
+        print(f'{object} -> {type}')
+
+        if type == "volume":
+            volume(int(figure[1]), int(figure[2]), int(figure[3]), int(figure[4]),int(figure[5]), int(figure[6]), eval(figure[7]))
+        if type == "porte":
+            volume(int(figure[1]), int(figure[2]), int(figure[3]), 30, 50, 2, eval(figure[4]))
+            volume(int(figure[1]) + 20, int(figure[2]) + 20, int(figure[3]), 3, 3, 3, (0,0,0))
+        if type == "fenetre":
+            volume(int(figure[1]), int(figure[2]) + 20, int(figure[3]), 30, 30, 2, eval(figure[4]))
+        if type == "fenetre-balcon":
+            volume(int(figure[1]), int(figure[2]), int(figure[3]), 30, 50, 2, eval(figure[4]))
+
+            volume(int(figure[1]) - 7, int(figure[2]) + 20, int(figure[3]) - 5, 3, 3, 15, (0,0,0))
+            volume(int(figure[1]) + 30, int(figure[2]) + 20, int(figure[3]) - 5, 3, 3, 15, (0,0,0))
+
+            volume(int(figure[1]) - 5, int(figure[2]) + 20, int(figure[3]) - 5, 40, 3, 2, (0,0,0))
+            volume(int(figure[1]) - 5, int(figure[2]) - 3, int(figure[3]) - 5, 40, 3, 15, (0,0,0))
+
+            volume(int(figure[1]) - 7, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) - 2, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 3, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 8, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 13, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 18, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 23, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 28, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+            volume(int(figure[1]) + 33, int(figure[2]) - 3, int(figure[3]) - 5, 1, 25, 2, (0,0,0))
+
+
+def generate(type, x, y, z, options):
+    objects[getPriority(x,y,z)] = f'{type};{x};{y};{z};{options}'
+    return objects
 
 if __name__ == '__main__':
-    generate(400, 0, 500, 100, 100, 100, (255,0,0))
-    generate(600, 0, 500, 100, 100, 100, (255,0,0))
-    generate(500, 50, 400, 100, 150, 100, (255,0,0))
-    generate(400, 0, 300, 100, 100, 100, (255,0,0))
-    generate(600, 0, 300, 100, 100, 100, (255,0,0))
-
-    generate(200, 0, 0, 100, 100, 100, (0,0,255))
-    generate(0, 0, 200, 100, 100, 100, (0,0,255))
-    generate(200, 0, 200, 100, 100, 100, (0,0,255))
-    generate(100, 100, 100, 100, 150, 100, (0,0,255))
-    generate(0, 0, 0, 100, 100, 100, (0,0,255))
-
-    generate(160, 0, -400, 100, 100, 100, couleurAleatoire())
-    generate(160, 100, -400, 100, 100, 100, couleurAleatoire())
-    generate(160, 200, -400, 100, 100, 100, couleurAleatoire())
-
-    turtle.Screen().tracer(0)
     turtle.hideturtle()
     turtle.penup()
-    turtle.pensize(4)
+    turtle.Screen().tracer(0)
 
+    ecart = 190
+
+    for y in range(-5,5):
+        tt = couleurAleatoire()
+        generate("volume", y*ecart, 0, 0, f'{140};{60};{140};{tt}')
+        generate("porte", y*ecart + 95, 0, 0, couleurAleatoire())
+
+        for i in range(1,6):
+            generate("volume", y*ecart, i*60, 0, f'{140};{60};{140};{tt}')
+            generate("fenetre", y*ecart+55, i * 60, 0, (144, 144, 144))
+            generate("fenetre-balcon", y*ecart+15, i * 60, 0, (144, 144, 144))
+            generate("fenetre-balcon", y*ecart+95, i * 60, 0, (144, 144, 144))
+    #generate("porte", 15, 0, 0, couleurAleatoire())
+
+    # generate("volume", 400, 0, 500, f'{100};{100};{100};{(255,0,0)}')
+    # generate("volume", 600, 0, 500, f'{100};{100};{100};{(255,0,0)}')
+    # generate("volume", 500, 50, 400, f'{100};{100};{100};{(255,0,0)}')
+    # generate("volume", 400, 0, 300, f'{100};{100};{100};{(255,0,0)}')
+    # generate("volume", 600, 0, 300, f'{100};{100};{100};{(255,0,0)}')
+    #
+    # generate("volume", 200, 0, 0, f'{100};{100};{100};{(0,0,255)}')
+    # generate("volume", 0, 0, 200, f'{100};{100};{100};{(0,0,255)}')
+    # generate("volume", 200, 0, 200, f'{100};{100};{100};{(0,0,255)}')
+    # generate("volume", 100, 100, 100, f'{100};{100};{100};{(0,0,255)}')
+
+
+
+    # Axes x,y,z
     #trait(0, -2000, 0, 2000)
     #trait(-2000, 0, 2000, 0)
     #traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
 
+    # Dessine toutes les figures - A faire une fois que toutes figures sont enregistrées grâce à la commande generate
     process()
-    print(getPOV())
+
     turtle.Screen().update()
     turtle.done()
