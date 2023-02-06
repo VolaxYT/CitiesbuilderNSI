@@ -2,6 +2,8 @@ import time
 
 from utils.trait import *
 from utils.couleurAleatoire import couleurAleatoire
+import numpy as np
+from math import *
 import turtle
 
 ratioX = 400 / 1100  # plus ou moins proche de l'axe des Y
@@ -45,6 +47,40 @@ def getPriority(x,y,z):
 def parse3D(x, y, z):
     return x + z * ratioX, y + z * ratioY, z
 
+# coordonnées avec matrices (marche pas bien)
+# def parse3D(x,y,z):
+#     angle = 120
+#     projection_matrix = np.matrix([
+#         [1,0,0],
+#         [0,1,0]
+#     ])
+#
+#     rotation_z = np.matrix([
+#         [cos(angle), -sin(angle), 0],
+#         [sin(angle), cos(angle), 0],
+#         [0, 0, 1],
+#     ])
+#
+#     rotation_y = np.matrix([
+#         [cos(angle), 0, sin(angle)],
+#         [0, 1, 0],
+#         [-sin(angle), 0, cos(angle)],
+#     ])
+#
+#     rotation_x = np.matrix([
+#         [1, 0, 0],
+#         [0, cos(angle), -sin(angle)],
+#         [0, sin(angle), cos(angle)],
+#     ])
+#
+#     rotated2d = np.dot(rotation_z, np.matrix([x,y,z]).reshape((3, 1)))
+#     rotated2d = np.dot(rotation_y, rotated2d)
+#     rotated2d = np.dot(rotation_x, rotated2d)
+#
+#     projected2d = np.dot(projection_matrix, rotated2d)
+#
+#     return int(projected2d[0][0]), int(projected2d[1][0])
+
 def trait3D(x1, y1, z1, x2, y2, z2):
     point1 = parse3D(x1, y1, z1)
     point2 = parse3D(x2, y2, z2)
@@ -84,7 +120,7 @@ def volume(x, y, z, longueur, hauteur, profondeur, couleur):
     turtle.end_fill()
     turtle.begin_fill()
     turtle.fillcolor(couleur)
-    if getPOV() == 1 or getPOV() == -1:
+    if getPOV() == 1 or getPOV() == -1 or getPOV() == 0:
         rectangle3D(base3, base4, plafond4, plafond3)
         turtle.end_fill()
         turtle.begin_fill()
@@ -143,10 +179,9 @@ if __name__ == '__main__':
     turtle.hideturtle()
     turtle.penup()
     turtle.Screen().tracer(0)
+    ecart = 220
 
-    ecart = 190
-
-    for y in range(-5,5):
+    for y in range(-1,2):
         tt = couleurAleatoire()
         generate("volume", y*ecart, 0, 0, f'{140};{60};{140};{tt}')
         generate("porte", y*ecart + 95, 0, 0, couleurAleatoire())
@@ -156,7 +191,9 @@ if __name__ == '__main__':
             generate("fenetre", y*ecart+55, i * 60, 0, (144, 144, 144))
             generate("fenetre-balcon", y*ecart+15, i * 60, 0, (144, 144, 144))
             generate("fenetre-balcon", y*ecart+95, i * 60, 0, (144, 144, 144))
-    #generate("porte", 15, 0, 0, couleurAleatoire())
+
+    generate("volume", 0,-5,-30, f'{2500};{5};{30};{(0,0,0)}')
+    # generate("volume", -1500,-25,0, f'{2500};{10};{75};{(0,0,0)}')
 
     # generate("volume", 400, 0, 500, f'{100};{100};{100};{(255,0,0)}')
     # generate("volume", 600, 0, 500, f'{100};{100};{100};{(255,0,0)}')
@@ -169,12 +206,10 @@ if __name__ == '__main__':
     # generate("volume", 200, 0, 200, f'{100};{100};{100};{(0,0,255)}')
     # generate("volume", 100, 100, 100, f'{100};{100};{100};{(0,0,255)}')
 
-
-
     # Axes x,y,z
-    #trait(0, -2000, 0, 2000)
-    #trait(-2000, 0, 2000, 0)
-    #traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
+    # trait(0, -2000, 0, 2000)
+    # trait(-2000, 0, 2000, 0)
+    # traitVec(parse3D(0, 0, 2000), parse3D(0, 0, -2000))
 
     # Dessine toutes les figures - A faire une fois que toutes figures sont enregistrées grâce à la commande generate
     process()
