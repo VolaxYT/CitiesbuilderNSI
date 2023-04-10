@@ -31,7 +31,7 @@ class Immeuble(Batiment):
         toit(self)
 
     # Fonction pour initialiser l'objet Immeuble et lui attribuer ses variables
-    def __init__(self, nom: str, position: int, x, ySol, nombreEtages, couleurFacade, couleurPorte, typeToit, etages):
+    def __init__(self, nom, position, x, ySol, nombreEtages, couleurFacade, couleurPorte, typeToit, etages):
         #Attribut les valeurs de l'objet Batiment
         super().__init__(nom, position, x, ySol)
 
