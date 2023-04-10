@@ -33,6 +33,7 @@ def getPOV():
         else:
             return -2
 
+# calculer la priorité de rendu en fonction des coordonnés x,y,z
 def getPriority(x,y,z):
     if getPOV() == 1:
         return -x * (3000+z) - y
@@ -43,9 +44,11 @@ def getPriority(x,y,z):
     if getPOV() == -1 or getPOV() == 0:
         return (5000 - x) * (3000 + z) + y
 
+# convertir des coordonnées 3D en 2D
 def parse3D(x, y, z):
-    return x + z * ratioX, y + z * ratioY, z
+    return x + z * ratioX, y + z * ratioY
 
+# dessiner un trait sur les axes x,y,z
 def trait3D(x1, y1, z1, x2, y2, z2):
     point1 = parse3D(x1, y1, z1)
     point2 = parse3D(x2, y2, z2)
@@ -56,12 +59,14 @@ def trait3D(x1, y1, z1, x2, y2, z2):
     turtle.goto(point2[0], point2[1])
     turtle.penup()
 
+# dessiner un rectangle sur les axes x,y,z
 def rectangle3D(point1, point2, point3, point4):
     traitVec(point1, point2)
     traitVec(point2, point3)
     traitVec(point3, point4)
     traitVec(point4, point1)
 
+# construire un volume en 3D
 def volume(x, y, z, longueur, hauteur, profondeur, couleur):
     turtle.colormode(255)
     startPos = parse3D(x, y, z)
@@ -144,32 +149,23 @@ if __name__ == '__main__':
     turtle.hideturtle()
     turtle.penup()
     turtle.Screen().tracer(0)
+    # distance entre les immeubles
     ecart = 220
 
+    # immeubles
     for y in range(-1,2):
-        tt = couleurAleatoire()
-        generate("volume", y*ecart, 0, 0, f'{140};{60};{140};{tt}')
+        couleur = couleurAleatoire()
+        generate("volume", y*ecart, 0, 0, f'{140};{60};{140};{couleur}')
         generate("porte", y*ecart + 95, 0, 0, couleurAleatoire())
 
         for i in range(1,6):
-            generate("volume", y*ecart, i*60, 0, f'{140};{60};{140};{tt}')
+            generate("volume", y*ecart, i*60, 0, f'{140};{60};{140};{couleur}')
             generate("fenetre", y*ecart+55, i * 60, 0, (144, 144, 144))
             generate("fenetre-balcon", y*ecart+15, i * 60, 0, (144, 144, 144))
             generate("fenetre-balcon", y*ecart+95, i * 60, 0, (144, 144, 144))
 
+    # Routes
     generate("volume", -800,-5,-30, f'{2500};{5};{30};{(0,0,0)}')
-    # generate("volume", -1500,-25,0, f'{2500};{10};{75};{(0,0,0)}')
-
-    # generate("volume", 400, 0, 500, f'{100};{100};{100};{(255,0,0)}')
-    # generate("volume", 600, 0, 500, f'{100};{100};{100};{(255,0,0)}')
-    # generate("volume", 500, 50, 400, f'{100};{100};{100};{(255,0,0)}')
-    # generate("volume", 400, 0, 300, f'{100};{100};{100};{(255,0,0)}')
-    # generate("volume", 600, 0, 300, f'{100};{100};{100};{(255,0,0)}')
-    #
-    # generate("volume", 200, 0, 0, f'{100};{100};{100};{(0,0,255)}')
-    # generate("volume", 0, 0, 200, f'{100};{100};{100};{(0,0,255)}')
-    # generate("volume", 200, 0, 200, f'{100};{100};{100};{(0,0,255)}')
-    # generate("volume", 100, 100, 100, f'{100};{100};{100};{(0,0,255)}')
 
     # Axes x,y,z
     if axes:
